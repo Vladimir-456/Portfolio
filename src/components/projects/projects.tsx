@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import Filters from "../filters/filters";
 import { filters } from "../../const";
 import useDebounce from "../../hooks/useDebounce";
-import { useFavorites } from "../../context/FavoritesContext";
 import { useFavoriteStore } from "../../store/useFavoriteStore";
 
 export type ProjectCardProps = {

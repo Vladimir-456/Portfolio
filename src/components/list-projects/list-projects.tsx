@@ -1,4 +1,3 @@
-import ProjectCard from "../project-card/project-card"
 import type { ProjectCardProps } from "../projects/projects"
 
 type ListProjectsProps = {
@@ -6,6 +5,8 @@ type ListProjectsProps = {
 }
 
 const ListProjects = ({ items } : ListProjectsProps) => {
+    console.log(items);
+    
     return (
         <div className="container mx-auto px-4 py-12">
             <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-6">Проекты</h1>\
