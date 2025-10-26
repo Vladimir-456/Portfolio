@@ -3,7 +3,6 @@ import sampleProjects from "../../../data/data";
 import Header from "../../header/header";
 import Hero from "../../hero/hero";
 import Projects from "../../projects/projects";
-import { useToast } from "../../../context/ToastContext";
 import { useToastStore } from "../../../store/useToastStore";
 
 

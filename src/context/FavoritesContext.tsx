@@ -29,6 +29,12 @@ export const FavoriteProvider = ({children} : {children: React.ReactNode}) => {
         addToast('Проект добавлен в избранное!')
     }, [favoriteIds]);
     
+/**
+ * Toggle project favorite status by id.
+ * If project with given id is already in favorites, remove it.
+ * Otherwise, add it to favorites.
+ * @param {string} id - project id
+ */
     const toggleClickFavorite = (id: string) => {
         setFavoriteIds(prev => prev.includes(id) ? prev.filter(favId => favId !== id) : [...prev, id]);
     };
