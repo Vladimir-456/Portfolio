@@ -15,12 +15,12 @@ const Card = ({ imageURL, title, description }: CardProps): JSX.Element => {
           <img
             src={imageURL}
             alt={title}
-            className="w-12 h-12 rounded-md object-cover"
+            className="w-full h-full md:w-32 md:h-32 rounded-md object-cover"
           />
         </div>
 
         <div>
-          <h3 className="text-xl font-medium text-black hover:text-white">{title}</h3>
+          <h3 className="md:text-xl text-lg font-medium text-black hover:text-white">{title}</h3>
           <p className="text-gray-500 hover:text-white">{description}</p>
         </div>
       </div>
