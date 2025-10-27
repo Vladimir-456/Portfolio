@@ -17,17 +17,22 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: ./dist
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
         with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm run build
+          name: build
+          path: ./dist
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
