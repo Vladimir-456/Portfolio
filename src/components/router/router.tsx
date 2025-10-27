@@ -39,6 +39,10 @@ const router = createBrowserRouter([
         </Suspense>,
     },
     {
+        path: '/Portfolio',
+        element: <Home/>
+    },
+    {
         path: AppRoute.Projects,
         element: <Projects items={sampleProjects} />
     },
