@@ -1,9 +1,10 @@
 import { Navigate } from 'react-router-dom';
-import { useUserStore } from '../../store/userStore';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../app/store';
 
 
 const PrivateRoute = ({ children }: { children: React.ReactNode}) => {
-  const user = useUserStore((state) => state.user);
+  const user = useSelector((state: RootState) => state.auth.user);
   console.log(user);
 
   if (!user) {

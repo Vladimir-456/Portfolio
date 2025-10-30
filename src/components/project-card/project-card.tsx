@@ -1,6 +1,9 @@
 import { useRef } from "react"
 import useIntersectionObserver from "../../hooks/useIntersectionObserver"
 import { useUserStore } from "../../store/userStore"
+import { useDispatch, useSelector } from "react-redux"
+import type { RootState } from "../../app/store"
+import { toggleClickFavorite } from "../../app/favorite/favoriteSlice"
 
 export type ProjectCardProps = {
     id: string
@@ -17,6 +20,8 @@ export type ProjectCardProps = {
     type : 'main' | 'favorite'
 }
 const ProjectCard = (props: ProjectCardProps) => {
+  const dispatch = useDispatch();
+  const isFavoriteFromStore = useSelector((state: RootState) => state.favorite.favoriteIds.includes(props.id));
     const user = useUserStore((state) => state.user);
     const {
         id, 
@@ -33,10 +38,12 @@ const ProjectCard = (props: ProjectCardProps) => {
         type} = props
     const ref = useRef<HTMLDivElement | null>(null);
     const isVisible = useIntersectionObserver({ ref });
+    const resolvedIsFavorite = isFavorite ?? isFavoriteFromStore;
 
    const handleClickFavorite = (evt: React.MouseEvent<HTMLImageElement>, id: string) => {
         console.log(id);
-        onClickFavorite(evt,id);
+        dispatch(toggleClickFavorite(id));
+        onClickFavorite?.(evt, id)
     };
 
     return (
@@ -66,7 +73,7 @@ const ProjectCard = (props: ProjectCardProps) => {
         {favoriteIconUrl && (
           <img
             className={`absolute top-2 right-2 w-6 h-6 cursor-pointer ${
-              isFavorite ? 'fill-red-500 filter-none' : 'filter grayscale'
+              resolvedIsFavorite ? 'fill-red-500 filter-none' : 'filter grayscale'
             }`}
             id="favorite"
             src={favoriteIconUrl}

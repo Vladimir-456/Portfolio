@@ -1,31 +1,35 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { adminLinks, userLinks } from './const';
-import { useUserStore } from '../../store/userStore';
-import { useState } from 'react'; // убери лишний use
+import { useState } from 'react'; 
+import { logout } from '../../app/auth/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../../app/store';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const user = useUserStore((state) => state.user);
-  const logout = useUserStore((state) => state.logout);
+  const user = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch()
+
   const navigate = useNavigate();
 
   const handleClickMenu = () => setIsOpen((prev) => !prev);
+
   const handleClickClose = () => setIsOpen(false);
+
   const handleLogout = () => {
-    logout();
+    dispatch(logout());
     navigate('/login');
   };
 
   return (
     <header>
       <div className='container mx-auto flex justify-between items-center px-4 py-2 sm:py-1 sm:px-2 relative'>
-        {/* Имя/статус пользователя */}
+      
         {user?.role === 'admin'
           ? <a className='font-semibold text-xl bg-gray-400 bg-clip-text text-transparent'>Администратор</a>
           : <a className='font-semibold text-xl bg-gray-400 bg-clip-text text-transparent'>Гость</a>
         }
 
-        {/* Десктоп-меню */}
         <nav className='hidden md:flex gap-4 text-gray-400'>
           {user?.role === 'admin'
             ? (
@@ -59,7 +63,6 @@ const Header = () => {
           }
         </nav>
 
-        {/* Кнопка-бургер только на мобильных */}
         <button className="
           md:hidden 
           p-2 
@@ -71,8 +74,7 @@ const Header = () => {
           hover:bg-gray-700 
           transition duration-300 ease-in-out"
           onClick={handleClickMenu}>Menu</button>
-        
-        {/* Мобильное меню с закрытием */}
+
         {isOpen && (
           <nav className='
             md:hidden 

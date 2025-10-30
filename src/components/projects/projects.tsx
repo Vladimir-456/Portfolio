@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import Filters from "../filters/filters";
 import { filters } from "../../const";
 import useDebounce from "../../hooks/useDebounce";
-import { useFavoriteStore } from "../../store/useFavoriteStore";
+import { toggleClickFavorite } from "../../app/favorite/favoriteSlice";
 
 export type ProjectCardProps = {
     id: string
@@ -29,7 +29,7 @@ export default function Projects({ items }: Props) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [filteredItems, setFilteredItems] = useState(items);
   const [search, setSearch] = useState('');
-  const toggleClickFavorite = useFavoriteStore(state => state.toggleClickFavorite); 
+  // const toggleClickFavorite = useFavoriteStore(state => state.toggleClickFavorite); 
   const [currentProject, setCurrentProject] = useState<ProjectCardProps | null>(null);
   const debounceSearch = useDebounce(search, 400);
 

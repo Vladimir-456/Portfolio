@@ -1,15 +1,22 @@
-import { useFavoriteStore } from "../../../store/useFavoriteStore"
+import { useSelector } from "react-redux"
 import type { Project } from "../../../types/project"
 import ProjectCard from "../../project-card/project-card"
+import type { RootState } from "../../../app/store"
+import { toggleClickFavorite } from "../../../app/favorite/favoriteSlice"
 
 type FavoriteListProps = {
     items: Project[]
 }
 
 const FavoriteList = ({items} : FavoriteListProps) => {
-    const favoriteIds = useFavoriteStore(state => state.favoriteIds);
-    const toggleClickFavorite = useFavoriteStore(state => state.toggleClickFavorite);
+    // const favoriteIds = useFavoriteStore(state => state.favoriteIds);
+    const favoriteIds = useSelector((state : RootState) => state.favorite.favoriteIds);
+    console.log(favoriteIds);
+    
+    // const toggleClickFavorite = useFavoriteStore(state => state.toggleClickFavorite);
     const favoriteItems = items.filter(item => favoriteIds.includes(item.id));
+    console.log(favoriteItems);
+    
     
     const handleClickFavorite = (evt: React.MouseEvent<HTMLImageElement>, id: string) => {
         evt.stopPropagation();
