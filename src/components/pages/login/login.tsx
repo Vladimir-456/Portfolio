@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../../store/userStore";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../../app/store";
+import { login } from "../../../app/auth/userSlice";
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -8,10 +10,10 @@ const Login = () => {
         password: ''
     });
 
-    const user = useUserStore((state) => state.user);
-    const login = useUserStore((state) => state.login);
+    const user = useSelector((state: RootState) => state.auth.user);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user) navigate('/');
@@ -26,7 +28,8 @@ const Login = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(formData);
-        login(formData.email, formData.password);
+        const userData = { email: formData.email, password: formData.password };
+        dispatch(login(userData));
     }
     return (
         <div className="container mx-auto">
