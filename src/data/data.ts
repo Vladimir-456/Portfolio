@@ -2,7 +2,7 @@ import type { Project } from '../types/project';
 
 const sampleProjects: Project[] = [
   {
-    id: 'p1',
+    id: 'sdsproj1abc123',
     title: 'Kekstagram UI Kit',
     description: 'Сайт является тренировочным проектом, созданный для изучения основ JavaScript.',
     imageUrl: 'https://raw.githubusercontent.com/AnN-Kuznetsova/AnN-Kuznetsova/main/img/kekstagram.jpg',
@@ -20,7 +20,7 @@ const sampleProjects: Project[] = [
     isFavorite: false
   },
   {
-    id: 'p2',
+    id: 'adsproj1abc150',
     title: 'Big Trip',
     description: 'Небольшое приложение для планирования своих путешествий.',
     imageUrl: 'https://cs1.htmlacademy.ru/intensive/ecmascript-individual/2/projects/big-trip/image.png?v=202508051119',
@@ -37,7 +37,7 @@ const sampleProjects: Project[] = [
      isFavorite: true
   },
   {
-    id: 'p3',
+    id: 'dsqproj1abc323',
     title: 'Менеджер задач',
     description: 'Небольшое приложение для планирования своих задач.',
     imageUrl: 'https://cs1.htmlacademy.ru/intensive/ecmascript-individual/2/projects/taskmanager/image.png?v=202508051119',
@@ -53,7 +53,7 @@ const sampleProjects: Project[] = [
      isFavorite: true
   },
   {
-    id: 'p4',
+    id: '1dproj1abc1fd23',
     title: 'Киноман',
     description: 'Приложения для поиска фильмов, сериалов и мультфильмов.',
     imageUrl: 'https://assets.htmlacademy.ru/img/intensive/ecmascript/projects/moowle@1x.png',

@@ -8,6 +8,7 @@ import Login from "../pages/login/login";
 import PrivateRoute from "../private-route/private-route";
 import Projects from "../projects/projects";
 import { AppRoute, links, skills } from "../../const";
+import ProjectPage from "../project-page/project-page";
 
 const AboutMeLazy = React.lazy(() => import("../about-me/about-me"));
 const ContactFormLazy = React.lazy(() => import("../contact-form/contact-form"));
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
     {
         path: AppRoute.Favorite,
         element: <Favorite items={sampleProjects} />
+    },
+    {
+        path: AppRoute.Project,
+        element: <ProjectPage projects={sampleProjects}/>
     },
     {
         path: AppRoute.Login,

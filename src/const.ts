@@ -20,9 +20,10 @@ export const AppRoute = {
   AboutMe: '/about-me',
   Contacts: '/contacts',
   Favorite: '/favorite',
-  Project: '/projects/:id',
+  Project: '/Portfolio/projects/:id',
   NotFound: '*',
   Projects: '/projects',
+  Portfolio: '/Portfolio/',
 } as const
 
 export type AppRoute = typeof AppRoute[keyof typeof AppRoute]

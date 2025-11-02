@@ -4,6 +4,8 @@ import { useUserStore } from "../../store/userStore"
 import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../../app/store"
 import { toggleClickFavorite } from "../../app/favorite/favoriteSlice"
+import { generatePath, Link } from "react-router-dom"
+import { AppRoute } from "../../const"
 
 export type ProjectCardProps = {
     id: string
@@ -102,15 +104,14 @@ const ProjectCard = (props: ProjectCardProps) => {
         </div>
 
         {href && (
-          <a
+          <Link
             className="mt-3 inline-block text-white no-underline transition duration-300 hover:text-cyan-400"
-            href={href}
+            to={generatePath(AppRoute.Project, { id })}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
           >
             View
-          </a>
+          </Link>
         )}
 
         {user?.role === 'admin' && (
