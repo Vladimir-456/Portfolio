@@ -5,7 +5,7 @@ type UserState = {
     user: User | null
 }
 
-type UserData = {
+export type UserData = {
     email: string
     password: string
 }
@@ -18,15 +18,8 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: defaultUserState,
   reducers: {
-    login(state, action: PayloadAction<UserData>) {
-      const userData = { ...action.payload }
-      let loggedUser: User
-      if(userData.email === 'admin@admin' && userData.password === 'admin') {
-        loggedUser = { email: userData.email, role: 'admin' }
-      } else {
-        loggedUser = { email: userData.email, role: 'guest' }
-      }
-      state.user = loggedUser
+    login(state, action: PayloadAction<User>) {
+      state.user = action.payload
     },
 
     logout(state) {
