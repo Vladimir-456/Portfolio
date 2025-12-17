@@ -1,54 +1,31 @@
-import { useSearchParams } from "react-router-dom";
 import Modal from "../modal/modal";
-import ProjectCard from "../project-card/project-card";
+import ProjectCard, {
+  type ProjectCardProps,
+} from "../project-card/project-card";
 import { useEffect, useMemo, useState } from "react";
 import Filters from "../filters/filters";
 import { filters } from "../../const";
 import useDebounce from "../../hooks/useDebounce";
-import { toggleClickFavorite } from "../../app/favorite/favoriteSlice";
-import { useGetUserReposQuery, useSearchRepoQuery } from "../../services/api";
 import { useAppSelector } from "../../hooks";
+import {
+  selectCurrentFilter,
+  selectCurrentProject,
+  selectItems,
+} from "../../app/app/selectors";
+// import { useGetUserReposQuery } from "../../services/api";
 
-export type ProjectCardProps = {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl?: string;
-  favoriteIconUrl?: string;
-  screenshots?: string[];
-  technologies?: string[];
-  href?: string;
-  isFavorite?: boolean;
-};
+export default function Projects() {
+  const items = useAppSelector(selectItems);
+  const activeFilter = useAppSelector(selectCurrentFilter);
+  const currentProject = useAppSelector(selectCurrentProject);
 
-type Props = { items: ProjectCardProps[] };
-
-export default function Projects({ items }: Props) {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const [galleryItems, setGalleryItems] = useState<string[]>([]);
-  const [activeFilter, setActiveFilter] = useState("all");
   const [filteredItems, setFilteredItems] = useState(items);
   const [search, setSearch] = useState("");
-  const [currentProject, setCurrentProject] = useState<ProjectCardProps | null>(
-    null
-  );
+
   const debounceSearch = useDebounce(search, 400);
-  // const { data, isLoading, error, isFetching } =
-  //   useGetUserReposQuery("Vladimir-456");
-  // console.log(data);
-  // console.log(isLoading);
-  // console.log(error);
-  // console.log(isFetching);
-
-  const githubState = useAppSelector((state) => state.githubApi);
-
-  console.log("🔥 RTK Query state:", githubState);
-
-  const { data, isLoading } = useSearchRepoQuery("js");
-  console.log(data);
-  console.log(isLoading);
 
   const filteredProjects = useMemo(() => {
     const lowerSearch = debounceSearch.toLowerCase();
@@ -71,51 +48,39 @@ export default function Projects({ items }: Props) {
   }, [activeFilter, items]);
 
   const openModal = (project: ProjectCardProps, index: number) => {
-    const next = new URLSearchParams(searchParams);
-    next.set("modal", String(index));
-    setSearchParams(next);
     setIsOpen(true);
     setGalleryItems(project.screenshots || []);
     setStartIndex(index);
-    setCurrentProject(project);
-    console.log(currentProject);
-  };
-
-  const handleClickFavorite = (
-    evt: React.MouseEvent<HTMLImageElement>,
-    id: string
-  ) => {
-    evt.stopPropagation();
-    toggleClickFavorite(id);
   };
 
   const closeModal = () => {
-    const next = new URLSearchParams(searchParams);
-    next.delete("modal");
-    setSearchParams(next);
     setIsOpen(false);
   };
+
   return (
     <section
       id="projects"
-      className="container mx-auto px-3 py-4 md:px-4 md:py-1"
+      className="container mx-auto mt-5 px-3 py-3 md:px-3 md:py-0"
     >
-      <h2 className=" text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-600 via-pink-500 to-yellow-400 bg-clip-text text-transparent">
+      <h2 className="text-3xl md:text-4xl  font-bold mb-5 bg-gradient-to-r from-indigo-600 via-pink-500 to-yellow-400 bg-clip-text text-transparent">
         Мои проекты
       </h2>
-      <input
-        type="text"
-        className="
+      <div className="">
+        <input
+          type="text"
+          className="
       md:mb-4 md:mt-3 mb-3 mt-1
       md:w-1/2 md:p-2 w-full p-2
+      placeholder:text-gray-600
       border text-white 
-      bg-gray-900 border-gray-300 
+      bg-gray-900 border-pink-500
       rounded-md 
       focus:outline-none focus:border-indigo-500"
-        placeholder="Поиск проектов..."
-        value={search}
-        onChange={(evt) => setSearch(evt.target.value)}
-      />
+          placeholder="Поиск проектов..."
+          value={search}
+          onChange={(evt) => setSearch(evt.target.value)}
+        />
+      </div>
       {search && (
         <button
           onClick={() => setSearch("")}
@@ -125,14 +90,13 @@ export default function Projects({ items }: Props) {
           ×
         </button>
       )}
-      <Filters activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
-      <div className="grid md:gap-6 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <Filters />
+      <div className="grid md:gap-7 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProjects?.map((p) => (
           <ProjectCard
             key={p.id}
             {...p}
             onOpenGallery={() => openModal(p, 0)}
-            onClickFavorite={handleClickFavorite}
             type="main"
           />
         ))}

@@ -12,7 +12,6 @@ export const FILTERS : string[] = ['all', 'Паттерны', 'Webpack', 'MVP/MV
 
 export const URL = 'https://cs1.htmlacademy.ru/intensive/ecmascript-individual/2/projects'
 
-
 export const AppRoute = {
   Main: '/',
   Login: '/login',
@@ -23,6 +22,7 @@ export const AppRoute = {
   Project: '/projects/:id',
   NotFound: '*',
   Projects: '/projects',
+  AddProject: '/add-project'
 } as const
 
 export type AppRoute = typeof AppRoute[keyof typeof AppRoute]
