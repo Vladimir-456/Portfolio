@@ -4,13 +4,15 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 import authReducer from './auth/reducer';
 import { toastsReducer } from './toasts/reducer';
 import { thunk, type ThunkAction } from 'redux-thunk';
+import appReducer from './app/reducer';
 
 const enhancer = composeWithDevTools(applyMiddleware(thunk));
 
 const rootReducer = combineReducers({
     favorite: favoriteReducer,
     auth: authReducer,
-    toasts: toastsReducer
+    toasts: toastsReducer,
+    app: appReducer
 })
 
 export const store = createStore(rootReducer, undefined, enhancer);

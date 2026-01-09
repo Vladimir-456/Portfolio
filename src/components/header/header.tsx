@@ -1,16 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import { adminLinks, userLinks } from "./const";
 import { useState } from "react";
-// import { logout } from '../../app/auth/userSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../redux/selectors";
 import { AUTH_LOGOUT } from "../../redux/auth/actions";
+import ThemeToggle from "../theme/theme";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector(selectUser);
-
   const dispatch = useDispatch();
+
+  // if (user) {
+  //   dispatch({
+  //     type: ADD_TOAST,
+  //     payload: { message: `Добро пожаловать, ${user.email}` },
+  //   });
+  // }
+
   const navigate = useNavigate();
 
   const handleClickMenu = () => setIsOpen((prev) => !prev);
@@ -22,33 +29,39 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header className="bg-white p-3 dark:bg-gray-900">
       <div className="container mx-auto flex justify-between items-center px-4 py-2 sm:py-1 sm:px-2 relative">
         {user?.role === "admin" ? (
-          <a className="font-semibold text-xl bg-gray-400 bg-clip-text text-transparent">
+          <Link
+            to="/"
+            className="font-semibold text-xl bg-gray-400 bg-clip-text text-black hover:text-gray-400 dark:text-gray-100"
+          >
             Администратор
-          </a>
+          </Link>
         ) : (
-          <a className="font-semibold text-xl bg-gray-400 bg-clip-text text-transparent">
+          <Link
+            to="/"
+            className="font-semibold text-xl bg-gray-400 bg-clip-text text-black dark:text-gray-400"
+          >
             Гость
-          </a>
+          </Link>
         )}
 
-        <nav className="hidden md:flex gap-4 text-gray-400">
+        <nav className="hidden md:flex gap-4">
           {user?.role === "admin" ? (
             <>
               {adminLinks.map((link, index) => (
                 <Link
                   key={index}
                   to={link.to}
-                  className="bg-gray-400 bg-clip-text text-transparent transition duration-300 hover:text-white"
+                  className="text-gray-600 transition duration-300 hover:text-gray-400 dark:hover:text-cyan-300"
                 >
                   {link.label}
                 </Link>
               ))}
               <button
                 onClick={handleLogout}
-                className="bg-gray-400 bg-clip-text text-transparent transition duration-300 hover:text-white"
+                className="bg-black bg-clip-text text-transparent transition duration-300 hover:text-white "
               >
                 Выйти
               </button>
@@ -59,14 +72,14 @@ const Header = () => {
                 <Link
                   key={index}
                   to={link.to}
-                  className="bg-gray-400 bg-clip-text text-transparent transition duration-300 hover:text-white"
+                  className="bg-black m-2 text-md dark:bg-gray-600 bg-clip-text text-transparent transition duration-300 hover:text-white dark:hover:text-cyan-300"
                 >
                   {link.label}
                 </Link>
               ))}
               <button
                 onClick={handleLogout}
-                className="bg-gray-400 bg-clip-text text-transparent transition duration-300 hover:text-white"
+                className="bg-black dark:bg-gray-600 bg-clip-text text-transparent transition duration-300 hover:text-white dark:hover:text-cyan-300"
               >
                 Войти
               </button>
@@ -146,6 +159,7 @@ const Header = () => {
             </ul>
           </nav>
         )}
+        <ThemeToggle />
       </div>
     </header>
   );

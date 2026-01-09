@@ -21,8 +21,9 @@ const authSlice = createSlice({
     login(state, action: PayloadAction<UserData>) {
       const userData = { ...action.payload }
       let loggedUser: User
-      if(userData.email === 'admin@admin' && userData.password === 'admin') {
+      if (userData.email === 'admin@admin' && userData.password === 'admin') {
         loggedUser = { email: userData.email, role: 'admin' }
+
       } else {
         loggedUser = { email: userData.email, role: 'guest' }
       }

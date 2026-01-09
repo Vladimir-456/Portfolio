@@ -8,6 +8,8 @@ import { addToast } from "../../../redux/toasts/actions";
 import type { useAppDispatch } from "../../../redux/store";
 import ToastList from "../../toast-list/toast-list";
 import { selectToasts } from "../../../redux/selectors";
+import Footer from "../../footer/footer";
+import { loadProjects } from "../../../redux/app/selectors";
 
 export default function Home() {
   const dispatch = useDispatch<useAppDispatch>();
@@ -18,6 +20,7 @@ export default function Home() {
   useEffect(() => {
     if (!hasShownToast.current) {
       dispatch(addToast("Страница портфолио"));
+      dispatch(loadProjects(sampleProjects));
       hasShownToast.current = true;
     }
 
@@ -26,13 +29,15 @@ export default function Home() {
 
   return (
     <>
-      <div>
+      <div className="bg-white p-5 dark:bg-gray-900">
         {toasts && <ToastList />}
         <Header />
         <main>
           <Hero />
-          <Projects items={sampleProjects} />
+          <Projects />
         </main>
+        <div className="mt-10"></div>
+        <Footer />
       </div>
     </>
   );

@@ -47,6 +47,7 @@ const ProjectCard = (props: ProjectCardProps) => {
     onClickFavorite,
     type,
   } = props;
+
   const ref = useRef<HTMLDivElement | null>(null);
   const isVisible = useIntersectionObserver({ ref });
   const resolvedIsFavorite = isFavorite ?? isFavoriteFromStore;
@@ -67,7 +68,7 @@ const ProjectCard = (props: ProjectCardProps) => {
       onClick={() => onOpenGallery?.(screenshots || [], 0)}
       ref={ref}
       className={`
-    relative rounded-xl bg-gray-900 shadow-md group transform 
+    relative rounded-xl bg-white: dark:bg-gray-800 shadow-md group transform 
     hover:-translate-y-1 hover:shadow-xl 
     transition duration-300 ease-in-out
     ${
@@ -81,7 +82,7 @@ const ProjectCard = (props: ProjectCardProps) => {
     >
       {type === "main" && (
         <>
-          <div className="relative h-48 bg-gray-100 overflow-hidden rounded-t-xl">
+          <div className="relative h-48 bg-white dark:bg-gray-100 overflow-hidden rounded-t-xl">
             {imageUrl ? (
               <img
                 className="w-full h-full object-cover"
@@ -90,7 +91,7 @@ const ProjectCard = (props: ProjectCardProps) => {
                 loading="lazy"
               />
             ) : (
-              <div className="w-full h-full bg-gray-300" />
+              <div className="w-full h-full bg-white dark:bg-gray-300" />
             )}
             {favoriteIconUrl && (
               <img
@@ -111,10 +112,10 @@ const ProjectCard = (props: ProjectCardProps) => {
           </div>
 
           <div className="p-4 rounded-b-xl flex flex-col">
-            <h3 className="text-lg font-semibold text-slate-300 truncate">
+            <h3 className="text-lg font-semibold text-black dark:text-slate-300 truncate">
               {title}
             </h3>
-            <p className="mt-2 mb-5 text-sm text-white line-clamp-3">
+            <p className="mt-2 mb-5 text-sm text-gray-500 dark:text-white line-clamp-3">
               {description}
             </p>
 
@@ -170,6 +171,7 @@ const ProjectCard = (props: ProjectCardProps) => {
           ) : (
             <div className="w-full h-full bg-gray-300" />
           )}
+
           {favoriteIconUrl && (
             <img
               className={`absolute top-2 right-2 w-6 h-6 cursor-pointer ${
