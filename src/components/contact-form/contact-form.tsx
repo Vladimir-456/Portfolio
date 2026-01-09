@@ -1,4 +1,6 @@
 import useValidate from "../../hooks/useValidate";
+import Footer from "../footer/footer";
+import Header from "../header/header";
 type FormData = {
     name: string;
     email: string;
@@ -17,7 +19,8 @@ const ContactForm = ()  => {
 
     return (
         <>
-        <div className="min-h-screen flex justify-center items-center bg-gray-900 p-4">
+        <Header/>
+        <div className="min-h-screen flex justify-center items-center  p-4">
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="w-full max-w-2xl flex flex-col gap-4 p-6 bg-gray-800 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold text-white">Свяжитесь со мной</h2>
                 <p className="text-gray-400">Обязательно с вами свяжусь.</p>
@@ -30,6 +33,7 @@ const ContactForm = ()  => {
                 <button type="submit" className="p-3 mt-1 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition duration-300">Отправить</button>
             </form>
         </div>
+        <Footer/>
     </>
     )
 }

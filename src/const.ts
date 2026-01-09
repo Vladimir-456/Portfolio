@@ -1,31 +1,43 @@
-import sampleProjects from "./data/data"
-import type { Project } from "./types/project"
+import sampleProjects from "./data/data";
+import type { Project } from "./types/project";
 
-export const filters : Record<string, Project[]> = {
-    'all': sampleProjects,
-    'Паттерны': sampleProjects.filter(p => p.technologies.includes('Паттерны проектирования')),
-    'Webpack': sampleProjects.filter(p => p.technologies.includes('Webpack')),
-    'MVP/MVC': sampleProjects.filter(p => p.technologies.includes('MVP/MVC')),
-    'JavaScript': sampleProjects.filter(p => p.technologies.includes('JavaScript'))
-}
-export const FILTERS : string[] = ['all', 'Паттерны', 'Webpack', 'MVP/MVC', 'JavaScript']
+export const filters: Record<string, Project[]> = {
+  all: sampleProjects,
+  Patterns: sampleProjects.filter((p) =>
+    p.technologies.includes("Паттерны проектирования")
+  ),
+  Webpack: sampleProjects.filter((p) => p.technologies.includes("Webpack")),
+  "MVP/MVC": sampleProjects.filter((p) => p.technologies.includes("MVP/MVC")),
+  JavaScript: sampleProjects.filter((p) =>
+    p.technologies.includes("JavaScript")
+  ),
+};
 
-export const URL = 'https://cs1.htmlacademy.ru/intensive/ecmascript-individual/2/projects'
+export const FILTERS: string[] = [
+  "all",
+  "Patterns",
+  "Webpack",
+  "MVP/MVC",
+  "JavaScript",
+];
 
+export const URL =
+  "https://cs1.htmlacademy.ru/intensive/ecmascript-individual/2/projects";
 
 export const AppRoute = {
-  Main: '/',
-  Login: '/login',
-  Admin: '/admin',
-  AboutMe: '/about-me',
-  Contacts: '/contacts',
-  Favorite: '/favorite',
-  Project: '/projects/:id',
-  NotFound: '*',
-  Projects: '/projects',
-} as const
+  Main: "/",
+  Login: "/login",
+  Admin: "/admin",
+  AboutMe: "/about-me",
+  Contacts: "/contacts",
+  Favorite: "/favorite",
+  Project: "/Portfolio/projects/:id",
+  NotFound: "*",
+  Projects: "/projects",
+  Portfolio: "/Portfolio/",
+} as const;
 
-export type AppRoute = typeof AppRoute[keyof typeof AppRoute]
+export type AppRoute = (typeof AppRoute)[keyof typeof AppRoute];
 
 export const skills = [
   "React",
@@ -35,7 +47,7 @@ export const skills = [
   "CSS3",
   "Vite",
   "REST / Fetch / Axios",
-  "Unit testing"
+  "Unit testing",
 ];
 
 export const links = [

@@ -1,39 +1,46 @@
-import { useSelector } from "react-redux"
-import type { Project } from "../../../types/project"
-import ProjectCard from "../../project-card/project-card"
-import type { RootState } from "../../../app/store"
-import { toggleClickFavorite } from "../../../app/favorite/favoriteSlice"
+import { useSelector } from "react-redux";
+import type { Project } from "../../../types/project";
+import ProjectCard from "../../project-card/project-card";
+import { toggleClickFavorite } from "../../../app/favorite/favoriteSlice";
+import { selectFavoriteIds } from "../../../redux/selectors";
+// import { addToast } from "../../../redux/toasts/actions";
 
 type FavoriteListProps = {
-    items: Project[]
-}
+  items: Project[];
+};
 
-const FavoriteList = ({items} : FavoriteListProps) => {
-    // const favoriteIds = useFavoriteStore(state => state.favoriteIds);
-    const favoriteIds = useSelector((state : RootState) => state.favorite.favoriteIds);
-    console.log(favoriteIds);
-    
-    // const toggleClickFavorite = useFavoriteStore(state => state.toggleClickFavorite);
-    const favoriteItems = items.filter(item => favoriteIds.includes(item.id));
-    console.log(favoriteItems);
-    
-    
-    const handleClickFavorite = (evt: React.MouseEvent<HTMLImageElement>, id: string) => {
-        evt.stopPropagation();
-        toggleClickFavorite(id);
-    }
-    return (
-        <div className="container mx-auto px-4 py-12">
-            <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-6">Ваши понравившиеся проекты</h1>
-            <div className="grid grid-cols-1 mt-4 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {favoriteItems.map((p, index) => 
-                <ProjectCard key={index} 
-                {...p} 
-                type="favorite" 
-                onClickFavorite={handleClickFavorite} />)}
-            </div>
-        </div>
-    )
-}
+const FavoriteList = ({ items }: FavoriteListProps) => {
+  const favoriteIds = useSelector(selectFavoriteIds);
 
-export default FavoriteList
+  // const toggleClickFavorite = useFavoriteStore(state => state.toggleClickFavorite);
+  const favoriteItems = items.filter((item) => favoriteIds.includes(item.id));
+  console.log(favoriteItems);
+
+  const handleClickFavorite = (
+    evt: React.MouseEvent<HTMLImageElement>,
+    id: string
+  ) => {
+    evt.stopPropagation();
+    toggleClickFavorite(id);
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-12">
+      <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-6">
+        Ваши понравившиеся проекты
+      </h1>
+      <div className="grid grid-cols-1 mt-4 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {favoriteItems.map((p, index) => (
+          <ProjectCard
+            key={index}
+            {...p}
+            type="favorite"
+            onClickFavorite={handleClickFavorite}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FavoriteList;
